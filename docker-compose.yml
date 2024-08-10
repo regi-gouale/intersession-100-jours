@@ -1,0 +1,19 @@
+services:
+  100_jours:
+    image: httpd:latest
+    container_name: 100_jours
+    volumes:
+      - .:/usr/local/apache2/htdocs/
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.100jours.rule=Host(`100jours.egliseiccaura.com`)"
+      - "traefik.http.routers.100jours.tls=false"
+      - "traefik.http.routers.100jours.entrypoints=websecure"
+      - "traefik.http.routers.100jours.tls.certresolver=myresolver"
+    restart: always
+    networks:
+      - web
+    
+networks:
+  web:
+    external: true
